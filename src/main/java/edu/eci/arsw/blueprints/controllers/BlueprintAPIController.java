@@ -50,18 +50,18 @@ public class BlueprintAPIController {
         try {
             return new ResponseEntity<>(bluePrintService.getBlueprintsByAuthor(author),HttpStatus.ACCEPTED);
         } catch (BlueprintNotFoundException e) {
-            //Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
         
     }
 
-    @RequestMapping(value = "/{author}", method = RequestMethod.GET)
-    public ResponseEntity<?> getBlueprintByAuthor(@PathVariable("author") String author) {
+    @RequestMapping(value = "/{author}/{bpname}", method = RequestMethod.GET)
+    public ResponseEntity<?> getBlueprintByAuthor(@PathVariable("author") String author,@PathVariable("bpname") String bpname ) {
         try {
-            return new ResponseEntity<>(bluePrintService.getBlueprintsByAuthor(author),HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(bluePrintService.getBlueprint(author,bpname),HttpStatus.ACCEPTED);
         } catch (BlueprintNotFoundException e) {
-            //Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
         
