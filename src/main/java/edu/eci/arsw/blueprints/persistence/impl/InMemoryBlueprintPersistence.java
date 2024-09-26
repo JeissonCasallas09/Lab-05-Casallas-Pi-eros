@@ -31,7 +31,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         //load stub data
         Point[] pts=new Point[]{new Point(140, 140),new Point(115, 115)};
         Blueprint bp=new Blueprint("_authorname_", "_bpname_ ",pts);
-        blueprints.put(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
+        // blueprints.put(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
         
         Point[] pts1=new Point[]{new Point(0, 0),new Point(10, 10),new Point(10, 10),new Point(20, 20)};
         Point[] pts2=new Point[]{new Point(20, 0),new Point(0, 20),new Point(0, 30),new Point(0, 40),new Point(0, 50)};
@@ -41,9 +41,9 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         Blueprint bp2=new Blueprint("leo", "miTiendita",pts2);
         Blueprint bp3=new Blueprint("jeitson", "miLotecito",pts3);
 
-        blueprints.put(new Tuple<>(bp1.getAuthor(), bp1.getName()), bp1);
-        blueprints.put(new Tuple<>(bp2.getAuthor(), bp2.getName()), bp2);
-        blueprints.put(new Tuple<>(bp3.getAuthor(), bp3.getName()), bp3);
+        // blueprints.put(new Tuple<>(bp1.getAuthor(), bp1.getName()), bp1);
+        // blueprints.put(new Tuple<>(bp2.getAuthor(), bp2.getName()), bp2);
+        // blueprints.put(new Tuple<>(bp3.getAuthor(), bp3.getName()), bp3);
     }
     
     @Override
@@ -62,21 +62,28 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }
 
     @Override
-    public Set<Blueprint> getBlueprintsByAuthor(String autor){
+    public Set<Blueprint> getBlueprintsByAuthor(String autor) throws BlueprintNotFoundException{
         Set<Blueprint> blueprintsBy = new HashSet<>();
         for(Blueprint blueprint : blueprints.values()){
             if(blueprint.getAuthor().equals(autor)){
                 blueprintsBy.add(blueprint);
             }
         }
+        if(blueprintsBy.isEmpty()){
+            throw new BlueprintNotFoundException("No blueprints found for author: " + autor);
+        }
         return blueprintsBy;
     }
 
     @Override
-    public Set<Blueprint> getAllBlueprints(){
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException{
         Set<Blueprint> AllBlueprints = new HashSet<>();
         for(Blueprint blueprint : blueprints.values()){
             AllBlueprints.add(blueprint);
+        }
+
+        if(AllBlueprints.isEmpty()){
+            throw new BlueprintNotFoundException("Blueprints not found");
         }
         return AllBlueprints;
     }

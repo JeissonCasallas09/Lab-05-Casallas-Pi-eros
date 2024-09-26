@@ -39,7 +39,7 @@ public class BlueprintsServices {
     }
 
 
-    public Set<Blueprint> getAllBlueprints() throws BlueprintPersistenceException{
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException{
         return bpp.getAllBlueprints();
     }
     /**
