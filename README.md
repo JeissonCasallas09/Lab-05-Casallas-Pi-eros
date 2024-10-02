@@ -56,9 +56,10 @@ R/: Como podemos ver hemos creado al menos 3 planos, donde dos de ellos estan as
 	}
 
 	```
-	* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persistencia y de filtrado de puntos).
 
 ![](img/GetAllBluePrints.png)
+
+	* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persistencia y de filtrado de puntos).
 
 ![](img/blueprintserviceAS.png)
 
