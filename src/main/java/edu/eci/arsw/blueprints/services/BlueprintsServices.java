@@ -54,7 +54,7 @@ public class BlueprintsServices {
      */
     public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
         Blueprint blueprint = bpp.getBlueprint(author, name);
-        bpf.filter(blueprint);
+        //bpf.filter(blueprint);
         System.out.println(blueprint.getPoints().size());
         return blueprint;
     }
@@ -68,10 +68,10 @@ public class BlueprintsServices {
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
         Set<Blueprint> blueprint= bpp.getBlueprintsByAuthor(author);
         Set<Blueprint> blueprintFilter= new HashSet<>();
-        for(Blueprint i: blueprint){
-            bpf.filter(i);
-            blueprintFilter.add(i);
-        }
+        // for(Blueprint i: blueprint){
+        //     bpf.filter(i);
+        //     blueprintFilter.add(i);
+        // }
         
         return blueprint;
     }
