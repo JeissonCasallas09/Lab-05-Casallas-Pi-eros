@@ -58,10 +58,13 @@ R/: Como podemos ver hemos creado al menos 3 planos, donde dos de ellos estan as
 	```
 	* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persistencia y de filtrado de puntos).
 
-	![](img/GetAllBluePrints.png)
-	![](img/blueprintserviceAS.png)
-	![](img/bluePrintsEjecucion.png)
-	![](img/BluePrintsNotFound.png)
+![](img/GetAllBluePrints.png)
+
+![](img/blueprintserviceAS.png)
+
+![](img/bluePrintsEjecucion.png)
+
+![](img/BluePrintsNotFound.png)
 
 	R/: Podemos ver como ahora la clase BluePrintServices funciona como service para la clase BlueprintAPIController, de igual forma hemos adaptado  la estructura del codigo Get que nos han proporcionado para que nos imprima todos los planos como nos lo piden. Por ende cuando lo ejecutamos con maven, vemos que en la URL "http://localhost:8080/blueprints" funciona, de igual forma para el caso cuando no hay planos nos va a arrojar la excepción correctamente.
 
