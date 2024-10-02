@@ -76,9 +76,9 @@ public class BlueprintsServices {
         return blueprint;
     }
 
-    public void updateBlueprint(String author, String name, List<Point> points) throws BlueprintNotFoundException{
+    public void updateBlueprint(String author, String name, Blueprint bp) throws BlueprintNotFoundException{
         Blueprint blueprint = bpp.getBlueprint(author, name);
-        bpp.updateBlueprint(blueprint, points);
+        bpp.updateBlueprint(blueprint, bp.getPoints());
     }
     
 }
