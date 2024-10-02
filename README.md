@@ -114,24 +114,35 @@ En caso de que no encuentre el plano del autor solicitado:
 	```	java
 	@RequestMapping(method = RequestMethod.POST)	
 	public ResponseEntity<?> manejadorPostRecursoXX(@RequestBody TipoXX o){
-        try {
-            //registrar dato
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (XXException ex) {
-            Logger.getLogger(XXController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);            
-        }        
- 	
+		try {
+			//registrar dato
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (XXException ex) {
+			Logger.getLogger(XXController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);            
+		}        
+	
 	}
 	```	
 
+R:/ Se crea el método createBlueprint, con la etiqueta RequestMapping para el método POST. Adicionalmente se recibe como parámetro el objeto JSON el cuál se mapea como un Blueprint
+
+![](img/P2.1.PNG)
+
+Luego se hace el llamado a la clase de service con el método de saveBlueprint
+
+![](img/P2.2.PNG)
+
+Finalmente se agrega el objeto al HashMap de blueprints en la persistencia
+
+![](img/P2.3.PNG)
 
 2.  Para probar que el recurso ‘planos’ acepta e interpreta
-    correctamente las peticiones POST, use el comando curl de Unix. Este
-    comando tiene como parámetro el tipo de contenido manejado (en este
-    caso jSON), y el ‘cuerpo del mensaje’ que irá con la petición, lo
-    cual en este caso debe ser un documento jSON equivalente a la clase
-    Cliente donde en lugar de {ObjetoJSON}, se usará un objeto jSON correspondiente a una nueva orden:
+	correctamente las peticiones POST, use el comando curl de Unix. Este
+	comando tiene como parámetro el tipo de contenido manejado (en este
+	caso jSON), y el ‘cuerpo del mensaje’ que irá con la petición, lo
+	cual en este caso debe ser un documento jSON equivalente a la clase
+	Cliente donde en lugar de {ObjetoJSON}, se usará un objeto jSON correspondiente a una nueva orden:
 
 	```	
 	$ curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://URL_del_recurso_ordenes -d '{ObjetoJSON}'
@@ -142,8 +153,21 @@ En caso de que no encuentre el plano del autor solicitado:
 
 	Nota: puede basarse en el formato jSON mostrado en el navegador al consultar una orden con el método GET.
 
+R/: Se ejecutó el siguiente comando:
+
+```
+curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://localhost:8080/blueprints -d '{"author": "diego","name": "casa","points":[{"x": 0,"y": 0},{"x": 10,"y": 10},{"x": 10,"y": 10},{"x": 20,"y": 20}]}'
+```
+
+Y se obtuvo:
+
+![](img/P2.2.1.PNG)
 
 3. Teniendo en cuenta el autor y numbre del plano registrado, verifique que el mismo se pueda obtener mediante una petición GET al recurso '/blueprints/{author}/{bpname}' correspondiente.
+
+R:/ Se consulta el navegador mediante la URL /blueprints/diego/casa y se obtuvo el plano anteriormente registrado
+
+![](img/P2.2.2.PNG)
 
 4. Agregue soporte al verbo PUT para los recursos de la forma '/blueprints/{author}/{bpname}', de manera que sea posible actualizar un plano determinado.
 
