@@ -31,6 +31,7 @@ public class BlueprintsServices {
     private BluePrintFilter bpf;
 
     public void addNewBlueprint(Blueprint bp){
+        bpp.saveBlueprint(bp);
     }
     
     public void addNewBlueprint(String author, String name, int[][]points) throws BlueprintPersistenceException{
