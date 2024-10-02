@@ -66,15 +66,16 @@ public class BlueprintAPIController {
         
     }
 
-    @RequestMapping(method = RequestMethod.POST)	
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createBlueprint(@RequestBody Blueprint bp){
         try {
             blueprintService.addNewBlueprint(bp);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (BlueprintPersistenceException ex) {
-        //     Logger.getLogger(XXController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);            
+        } catch (BlueprintPersistenceException e) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
     }
 
 }

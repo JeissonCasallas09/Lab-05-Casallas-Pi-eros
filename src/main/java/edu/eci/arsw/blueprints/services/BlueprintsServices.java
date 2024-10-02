@@ -30,7 +30,7 @@ public class BlueprintsServices {
     @Autowired
     private BluePrintFilter bpf;
 
-    public void addNewBlueprint(Blueprint bp){
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
         bpp.saveBlueprint(bp);
     }
     
