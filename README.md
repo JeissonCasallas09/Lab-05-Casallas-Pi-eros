@@ -24,7 +24,15 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 
 1. Integre al proyecto base suministrado los Beans desarrollados en el ejercicio anterior. Sólo copie las clases, NO los archivos de configuración. Rectifique que se tenga correctamente configurado el esquema de inyección de dependencias con las anotaciones @Service y @Autowired.
 
+![](img/BeansAnteriores.png)
+
+R/: En este caso hemos integrado el model, persistence y services con los controllers y la api.
+
 2. Modifique el bean de persistecia 'InMemoryBlueprintPersistence' para que por defecto se inicialice con al menos otros tres planos, y con dos asociados a un mismo autor.
+
+![](img/PlanosAsociados.png)
+
+R/: Como podemos ver hemos creado al menos 3 planos, donde dos de ellos estan asociados a un mismo autor, en este caso "leo" 
 
 3. Configure su aplicación para que ofrezca el recurso "/blueprints", de manera que cuando se le haga una petición GET, retorne -en formato jSON- el conjunto de todos los planos. Para esto:
 
@@ -48,7 +56,14 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 	}
 
 	```
-	* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persisntecia y de filtrado de puntos).
+	* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persistencia y de filtrado de puntos).
+	![](img/GetAllBluePrints.png)
+	![](img/blueprintserviceAS.png)
+	![](img/bluePrintsEjecucion.png)
+	![](img/BluePrintsNotFound.png)
+
+	R/: Podemos ver como ahora la clase BluePrintServices funciona como service para la clase BlueprintAPIController, de igual forma hemos adaptado  la estructura del codigo Get que nos han proporcionado para que nos imprima todos los planos como nos lo piden. Por ende cuando lo ejecutamos con maven, vemos que en la URL "http://localhost:8080/blueprints" funciona, de igual forma para el caso cuando no hay planos nos va a arrojar la excepción correctamente.
+
 
 4. Verifique el funcionamiento de a aplicación lanzando la aplicación con maven:
 
@@ -59,12 +74,36 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 	```
 	Y luego enviando una petición GET a: http://localhost:8080/blueprints. Rectifique que, como respuesta, se obtenga un objeto jSON con una lista que contenga el detalle de los planos suministados por defecto, y que se haya aplicado el filtrado de puntos correspondiente.
 
+R/: Se ejecutaron los comandos indicados y se obtuvo la lista correspondiente en formato JSON
+
+![](img/04.PNG)
 
 5. Modifique el controlador para que ahora, acepte peticiones GET al recurso /blueprints/{author}, el cual retorne usando una representación jSON todos los planos realizados por el autor cuyo nombre sea {author}. Si no existe dicho autor, se debe responder con el código de error HTTP 404. Para esto, revise en [la documentación de Spring](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html), sección 22.3.2, el uso de @PathVariable. De nuevo, verifique que al hacer una petición GET -por ejemplo- a recurso http://localhost:8080/blueprints/juan, se obtenga en formato jSON el conjunto de planos asociados al autor 'juan' (ajuste esto a los nombres de autor usados en el punto 2).
 
+
+R/: Se implementó el método getBlueprintByAuthor el cuál recibe un parámetro desde la URL y los capturamos con la etiqueta PathVariable.
+
+![](img/05.PNG)
+
+En caso de que si exista el autor y tenga planos:
+
+![](img/05.1.PNG)
+
+En caso de que no exista el autor
+
+![](img/05.2.PNG)
+
 6. Modifique el controlador para que ahora, acepte peticiones GET al recurso /blueprints/{author}/{bpname}, el cual retorne usando una representación jSON sólo UN plano, en este caso el realizado por {author} y cuyo nombre sea {bpname}. De nuevo, si no existe dicho autor, se debe responder con el código de error HTTP 404. 
 
+R/: Se crea el método getBlueprintByAuthor el cuál recibe dos parámetros desde la URL y los capturamos con la etiqueta PathVariable.
 
+![](img/06.PNG)
+
+En caso de que si exista el plano del autor solicitado:
+![](img/07.PNG)
+
+En caso de que no encuentre el plano del autor solicitado:
+![](img/08.PNG)
 
 ### Parte II
 
