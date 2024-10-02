@@ -147,6 +147,33 @@ En caso de que no encuentre el plano del autor solicitado:
 
 4. Agregue soporte al verbo PUT para los recursos de la forma '/blueprints/{author}/{bpname}', de manera que sea posible actualizar un plano determinado.
 
+	Vamos a crear un metodo update, de forma que podamos actualizar los puntos de un blueprint, para este caso tomamos el blueprint y le hacemos un setPoints.
+	
+	![](img/PersistencePUT.png)
+
+	Desde el service vamos a obtener el blueprint por nombre y autor, con ayuda del metodo getBlueprint, para luego aplicarle el update.
+
+	![](img/servicePUT.png)
+
+	Por ultimo hacemos la implementación del metodo Request PUT basandonos en las estructuras de solicitudes usadas anteriormente y realizando las modificaciones adecuadas para adaptarlo. Desde aca vamos a obtener un el plano por nombre y autor por medio del subdominio y le vamos a modificar los puntos. 
+
+	![](img/ControllerPUT.png)
+
+	Como ejemplo hemos usado el dominio de http://localhost:8080/blueprints/leo/miCasita para mostrar como funciona.
+
+	![](img/antesPUT.png)
+
+	Usamos el comando PUT desde la consola del git para modificarle los puntos
+
+	![](img/comandoPUT.png)
+
+	Actualizamos la pagina para ver como se actualizaron los puntos del plano.
+
+	![](img/despuesPUT.png)
+
+	Como podemos ver funciona correctamente, de igual forma se puede visualizar el cambio desde la principal donde visualizamos todos los blueprint
+
+	![](img/allPUT.png)
 
 ### Parte III
 
