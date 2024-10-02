@@ -100,9 +100,11 @@ R/: Se crea el método getBlueprintByAuthor el cuál recibe dos parámetros desd
 ![](img/06.PNG)
 
 En caso de que si exista el plano del autor solicitado:
+
 ![](img/07.PNG)
 
 En caso de que no encuentre el plano del autor solicitado:
+
 ![](img/08.PNG)
 
 ### Parte II
