@@ -153,7 +153,17 @@ En caso de que no encuentre el plano del autor solicitado:
 El componente BlueprintsRESTAPI funcionará en un entorno concurrente. Es decir, atederá múltiples peticiones simultáneamente (con el stack de aplicaciones usado, dichas peticiones se atenderán por defecto a través múltiples de hilos). Dado lo anterior, debe hacer una revisión de su API (una vez funcione), e identificar:
 
 * Qué condiciones de carrera se podrían presentar?
+	
+	![](img/concurrentHashmap.png)
+
+	R/: Volviendo la colección que antes era un Hashmap una ConcurrentHashMap, vamos a evitar una condición carrera que se podria producir cuando multiples solicitudes intentar modificar el mismo blueprint. o ingresar a este arreglo para obtenerlos y realizar alguna tarea. Es por ello que es necesario mantener la coherencia y prevenir problemas de sincronización de los datos al manipular esta coleccición por medio de una concurrente que maneja este tipo de casos.
+
 * Cuales son las respectivas regiones críticas?
+	
+	![](img/regionCritica.png)
+
+	R/: La región critica en este caso se daria en el metodo saveBlueprint pues desde aca, desde donde podria ocurrir que traten de guardar dos planos al mismo tiempo con mismo nombre y autor, lo cual llevaria a errores. Por lo que el ajuste consiste en usar un putIfAbsent() en vez de un put para que se ingresen los planos de forma concurrente, evitando que entren planos al mismo tiempo.
+
 
 Ajuste el código para suprimir las condiciones de carrera. Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
 
