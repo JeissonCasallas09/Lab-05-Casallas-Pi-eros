@@ -56,8 +56,8 @@ R/: Como podemos ver hemos creado al menos 3 planos, donde dos de ellos estan as
 	}
 
 	```
-
-	* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persistencia y de filtrado de puntos).
+	
+* Haga que en esta misma clase se inyecte el bean de tipo BlueprintServices (al cual, a su vez, se le inyectarán sus dependencias de persistencia y de filtrado de puntos).
 
 ![](img/imagenbug.png)
 
@@ -67,10 +67,10 @@ R/: Como podemos ver hemos creado al menos 3 planos, donde dos de ellos estan as
 
 ![](img/BluePrintsNotFound.png)
 
-	R/: Podemos ver como ahora la clase BluePrintServices funciona como service para la clase BlueprintAPIController, de igual forma hemos adaptado  la estructura del codigo Get que nos han proporcionado para que nos imprima todos los planos como nos lo piden. Por ende cuando lo ejecutamos con maven, vemos que en la URL "http://localhost:8080/blueprints" funciona, de igual forma para el caso cuando no hay planos nos va a arrojar la excepción correctamente.
+R/: Podemos ver como ahora la clase BluePrintServices funciona como service para la clase BlueprintAPIController, de igual forma hemos adaptado  la estructura del codigo Get que nos han proporcionado para que nos imprima todos los planos como nos lo piden. Por ende cuando lo ejecutamos con maven, vemos que en la URL "http://localhost:8080/blueprints" funciona, de igual forma para el caso cuando no hay planos nos va a arrojar la excepción correctamente.
 
 
-1. Verifique el funcionamiento de a aplicación lanzando la aplicación con maven:
+4. Verifique el funcionamiento de a aplicación lanzando la aplicación con maven:
 
 	```bash
 	$ mvn compile
@@ -209,21 +209,27 @@ R:/ Se consulta el navegador mediante la URL /blueprints/diego/casa y se obtuvo 
 El componente BlueprintsRESTAPI funcionará en un entorno concurrente. Es decir, atederá múltiples peticiones simultáneamente (con el stack de aplicaciones usado, dichas peticiones se atenderán por defecto a través múltiples de hilos). Dado lo anterior, debe hacer una revisión de su API (una vez funcione), e identificar:
 
 * Qué condiciones de carrera se podrían presentar?
-	
-	![](img/concurrentHashmap.png)
-
-	R/: Volviendo la colección que antes era un Hashmap una ConcurrentHashMap, vamos a evitar una condición carrera que se podria producir cuando multiples solicitudes intentar modificar el mismo blueprint. o ingresar a este arreglo para obtenerlos y realizar alguna tarea. Es por ello que es necesario mantener la coherencia y prevenir problemas de sincronización de los datos al manipular esta coleccición por medio de una concurrente que maneja este tipo de casos.
+ 
+R/: Podrá ocurrir una condición carrera cuando multiples solicitudes intentar agregar el mismo blueprint. o ingresar a este arreglo para obtenerlos y realizar alguna tarea. Es por ello que es necesario mantener la coherencia y prevenir problemas de sincronización de los datos al manipular esta colección por medio de una concurrente que maneja este tipo de casos.
 
 * Cuales son las respectivas regiones críticas?
 	
-	![](img/regionCritica.png)
+	![](img/preConcurrencia.PNG)
 
-	R/: La región critica en este caso se daria en el metodo saveBlueprint pues desde aca, desde donde podria ocurrir que traten de guardar dos planos al mismo tiempo con mismo nombre y autor, lo cual llevaria a errores. Por lo que el ajuste consiste en usar un putIfAbsent() en vez de un put para que se ingresen los planos de forma concurrente, evitando que entren planos al mismo tiempo.
+	R/: La región critica en este caso se daria en el metodo saveBlueprint pues desde aca, es donde podria ocurrir que traten de guardar dos planos al mismo tiempo con mismo nombre y autor, lo cual llevaria a errores.
 
 
 Ajuste el código para suprimir las condiciones de carrera. Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
 
 Escriba su análisis y la solución aplicada en el archivo ANALISIS_CONCURRENCIA.txt
+
+R/: Convertirmos la colección que antes era un Hashmap a una ConcurrentHashMap, para evitar una condición carrera que se podria producir cuando multiples solicitudes intentar modificar el mismo blueprint. o ingresar a este arreglo para obtenerlos y realizar alguna tarea.
+
+![](img/concurrentHashmap.png)
+
+R/: El ajuste consiste en usar un putIfAbsent() en vez de un put para que se ingresen los planos de forma segura, evitando que entren planos duplicados.
+
+![](img/regionCritica.png)
 
 #### Criterios de evaluación
 
