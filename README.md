@@ -129,7 +129,7 @@ En caso de que no encuentre el plano del autor solicitado:
     comando tiene como parámetro el tipo de contenido manejado (en este
     caso jSON), y el ‘cuerpo del mensaje’ que irá con la petición, lo
     cual en este caso debe ser un documento jSON equivalente a la clase
-    Cliente (donde en lugar de {ObjetoJSON}, se usará un objeto jSON correspondiente a una nueva orden:
+    Cliente donde en lugar de {ObjetoJSON}, se usará un objeto jSON correspondiente a una nueva orden:
 
 	```	
 	$ curl -i -X POST -HContent-Type:application/json -HAccept:application/json http://URL_del_recurso_ordenes -d '{ObjetoJSON}'
