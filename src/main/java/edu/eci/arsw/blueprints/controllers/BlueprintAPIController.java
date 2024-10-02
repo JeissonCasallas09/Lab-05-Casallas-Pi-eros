@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.blueprints.controllers;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
@@ -77,6 +79,19 @@ public class BlueprintAPIController {
         }
         
     }
+
+    @RequestMapping(value = "/{author}/{bpname}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateBlueprint(@PathVariable("author") String author,@PathVariable("bpname") String bpname, @RequestBody List<Point> points){
+        try {
+            blueprintService.updateBlueprint(author,bpname,points);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (BlueprintNotFoundException e) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+    }
+
 
 }
 

@@ -7,6 +7,7 @@ package edu.eci.arsw.blueprints.persistence.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,5 +91,10 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
             throw new BlueprintNotFoundException("Blueprints not found");
         }
         return AllBlueprints;
+    }
+
+    @Override
+    public void updateBlueprint(Blueprint blueprint, List<Point> points){
+        blueprint.setPoints(points);
     }
 }
